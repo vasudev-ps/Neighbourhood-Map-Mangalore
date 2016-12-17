@@ -34,7 +34,6 @@ viewModel = {
             //add wikipedia links to the nav bar
         addItem : function(address) {
             var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + address + "&format=json&callback=wikiCallback";
-            console.log(wikiUrl);
             var wikiTimeout = setTimeout(function() {
                     viewModel.wikiPara(wikifail);
                     }, 8000);
