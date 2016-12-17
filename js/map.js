@@ -4,7 +4,7 @@ var Address = {
     lat: 12.9141,
     lng: 74.8560
 };
-var googleMapsLoaded = false;
+
 
     function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -12,21 +12,6 @@ var googleMapsLoaded = false;
             center: Address,
             zoom: 10
             });
-            /* listen to the tilesloaded event
-             if that is triggered, google maps is loaded successfully for sure */
-            google.maps.event.addListener(map, 'tilesloaded', function() {
-               googleMapsLoaded = true;
-               //clear the listener, we only need it once
-               google.maps.event.clearListeners(map, 'tilesloaded');
-            });
-            /* a delayed check to see if google maps was ever loaded */
-            setTimeout(function() {
-              if (!googleMapsLoaded) {
-                 //we have waited 5 secs, google maps is not loaded yet
-                 alert("Sorry we couldn't Load Map"+
-                        " Refresh the page after sometime");
-              }
-            }, 5000);
             findPlaces(placeName);
     }
 
@@ -34,7 +19,6 @@ var googleMapsLoaded = false;
     function findPlaces(name) {
         var bounds = map.getBounds();
         var Query = name + " point of interest";
-        console.log(Query);
         var placesService = new google.maps.places.PlacesService(map);
         placesService.textSearch({
         query: Query,
@@ -45,8 +29,6 @@ var googleMapsLoaded = false;
                     markerName[i] = results[i].name;
                  }
                 createMarkersForPlaces(results);
-                console.log(results);
-                console.log(markerName);
             }
             else{
                window.alert("Sorry we couldn't place Markers."+
@@ -81,6 +63,8 @@ var googleMapsLoaded = false;
                     window.alert("This infowindow already is on this marker!");
                 } else {
                     getPlacesDetails(this, placeInfoWindow);
+                    //add wiki element links on click of marker
+                    viewModel.addItem(this.title);
                 }
             });
             marker.addListener('mouseover', function() {
@@ -99,7 +83,11 @@ var googleMapsLoaded = false;
         }
         map.fitBounds(bounds);
     }
-
+    //mapError handling for on error
+    function mapError(){
+            alert("Sorry we couldn't Load Map"+
+            " Refresh the page after sometime");
+    }
     // function to create a colored icon for marker
     function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
@@ -122,6 +110,9 @@ var googleMapsLoaded = false;
     //to infowindow.
     function getPlacesDetails(marker, infowindow) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function () {
+                marker.setAnimation(null);
+            }, 3000);
     var service = new google.maps.places.PlacesService(map);
     var innerHTML;
     service.getDetails({

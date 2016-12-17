@@ -61,11 +61,12 @@
             var placeName = "mangalore";
             var markerName = new Array();
             var placeMarkers = [];
+            var viewModel;// global viewmodel for ko bindings
     </script>
     <script src="js/map.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/knockout-3.4.1.js"></script>
     <script src="js/app.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyArWW5wQIxDKLTekSa1Jq_XgyKsrikVjDs&v=3&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyArWW5wQIxDKLTekSa1Jq_XgyKsrikVjDs&v=3&callback=initMap" onerror="mapError()"></script>
     </body>
     </html>

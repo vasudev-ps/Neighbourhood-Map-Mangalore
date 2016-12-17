@@ -2,14 +2,15 @@ var marker = [];
 var wikisuccess = "Some useful Wikipedia Links about the place.";
 var wikiload = "Loading Wikipedia Data...";
 var wikifail = "Failed to get Wiki Resources.";
-var viewModel = {
+viewModel = {
         WikiName: ko.observableArray(),
         WikiLinks: ko.observableArray(),
         markerList:ko.observableArray(),
         wikiPara:ko.observable(),
         toggleNav: function(){
             document.getElementById("Nav").classList.toggle("open");
-            marker = markerName.slice(),
+            marker = markerName.slice();
+            if(!viewModel.query())
             viewModel.markerList(marker);
         },
         //Toggle the nav when clicked on map
@@ -35,8 +36,8 @@ var viewModel = {
             var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + address + "&format=json&callback=wikiCallback";
             console.log(wikiUrl);
             var wikiTimeout = setTimeout(function() {
-            viewModel.wikiPara(wikifail);
-            }, 8000);
+                    viewModel.wikiPara(wikifail);
+                    }, 8000);
             viewModel.wikiPara(wikiload);
             $.ajax(wikiUrl, {
                 dataType: 'jsonp',
