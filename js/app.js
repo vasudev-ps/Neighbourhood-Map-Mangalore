@@ -1,6 +1,6 @@
 var marker = [];
 var wikisuccess = "Some useful Wikipedia Links about the place.";
-var wikilocal = "Some useful Wikipedia Links about Mangalore.";
+var wikiload = "Loading Wikipedia Data...";
 var wikifail = "Failed to get Wiki Resources.";
 var viewModel = {
         WikiName: ko.observableArray(),
@@ -35,8 +35,9 @@ var viewModel = {
             var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + address + "&format=json&callback=wikiCallback";
             console.log(wikiUrl);
             var wikiTimeout = setTimeout(function() {
-                viewModel.wikiPara(wikifail);
+            viewModel.wikiPara(wikifail);
             }, 8000);
+            viewModel.wikiPara(wikiload);
             $.ajax(wikiUrl, {
                 dataType: 'jsonp',
                 success: function(data) {
@@ -49,7 +50,6 @@ var viewModel = {
             //check if data is present about  the search.
             //else give useful data about mangalore
             if(data[1].length === 0){
-                viewModel.wikiPara(wikilocal);
                 viewModel.addItem(placeName);
             }
             else{

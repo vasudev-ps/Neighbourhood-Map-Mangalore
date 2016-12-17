@@ -4,6 +4,7 @@ var Address = {
     lat: 12.9141,
     lng: 74.8560
 };
+var googleMapsLoaded = false;
 
     function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -11,6 +12,21 @@ var Address = {
             center: Address,
             zoom: 10
             });
+            /* listen to the tilesloaded event
+             if that is triggered, google maps is loaded successfully for sure */
+            google.maps.event.addListener(map, 'tilesloaded', function() {
+               googleMapsLoaded = true;
+               //clear the listener, we only need it once
+               google.maps.event.clearListeners(map, 'tilesloaded');
+            });
+            /* a delayed check to see if google maps was ever loaded */
+            setTimeout(function() {
+              if (!googleMapsLoaded) {
+                 //we have waited 5 secs, google maps is not loaded yet
+                 alert("Sorry we couldn't Load Map"+
+                        " Refresh the page after sometime");
+              }
+            }, 5000);
             findPlaces(placeName);
     }
 
@@ -33,7 +49,8 @@ var Address = {
                 console.log(markerName);
             }
             else{
-               window.alert("Sorry we could place Markers");
+               window.alert("Sorry we couldn't place Markers."+
+                            " Refresh the page after sometime");
             }
         });
         map.setZoom(10);
