@@ -10,7 +10,7 @@ Neighbourhood-Map is a project where interesting places near Mangalore is shown.
 * `index.html` - Main page
 
 ###Manual
-
+Download the repo and open `index.html` to check the live version: [Click Here](https://vasudev-ps.github.io/Neighbourhood-Map-Mangalore/)
 User will first see their many location on the map which are interesting places near Mangalore fetched by google.
 
 For more options user should click on the **hamburger menu on the top left side** of application.
