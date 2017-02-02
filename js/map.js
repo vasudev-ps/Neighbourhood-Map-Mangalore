@@ -25,7 +25,7 @@ var Address = {
         bounds: bounds
         }, function(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-                 for (var i = 0; i < 10; i++) {
+                 for (var i = 0; i < results.length; i++) {
                     markerName[i] = results[i].name;
                  }
                 createMarkersForPlaces(results);
@@ -43,7 +43,7 @@ var Address = {
         var defaultIcon = makeMarkerIcon('CC0000');
         var highlightedIcon = makeMarkerIcon('6600CC');
         var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < places.length; i++) {
             var place = places[i];
             // Create a marker for each place.
             var marker = new google.maps.Marker({
